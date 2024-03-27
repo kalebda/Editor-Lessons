@@ -69,6 +69,7 @@ export default class Lessons {
      * @private
      */
     this._element = null;
+    this.onKeyUp = this.onKeyUp.bind(this);
   }
   /**
    * Normalize input data
@@ -90,8 +91,19 @@ export default class Lessons {
 
     return newData;
   }
+  onKeyUp(e) {
+    if (e.code !== "Backspace" && e.code !== "Delete") {
+      return;
+    }
+
+    const { textContent } = this._element;
+
+    if (textContent === "") {
+      this._element.innerHTML = "";
+    }
+  }
   checkPreviousBlocksForTopics(currentBlockIndex) {
-    for (let i = currentBlockIndex - 1; i >= 0; i--) {
+    for (let i = currentBlockIndex; i >= 0; i--) {
       const block = this.api.blocks.getBlockByIndex(i);
       if (block.name == "topics") {
         return true;
@@ -109,11 +121,14 @@ export default class Lessons {
     if (
       this.api.blocks.getCurrentBlockIndex() == -1 ||
       (this.api.blocks.getCurrentBlockIndex() > -1 &&
-        checkPreviousBlocksForTopics(this.api.blocks.getCurrentBlockIndex()))
+        this.checkPreviousBlocksForTopics(
+          this.api.blocks.getCurrentBlockIndex()
+        ))
     ) {
       this._element = this.getTag();
       return this._element;
     }
+
     return this.getNoNode();
   }
 
@@ -267,8 +282,11 @@ export default class Lessons {
     /**
      * Add Placeholder
      */
-    tag.dataset.placeholder = this.api.i18n.t(this._settings.placeholder || "");
-
+    tag.dataset.placeholder = this.api.i18n.t(
+      this._settings.placeholder || "New Lesson"
+    );
+    tag.contentEditable = true;
+    tag.addEventListener("keyup", this.onKeyUp);
     return tag;
   }
 

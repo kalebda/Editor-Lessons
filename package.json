@@ -1,6 +1,6 @@
 {
   "name": "@kalebu2468/editor-lessons",
-  "version": "0.0.2",
+  "version": "0.0.7",
   "keywords": [
     "codex editor",
     "lesson",
@@ -13,12 +13,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/lessons.umd.js",
-  "module": "./dist/lessons.mjs",
+  "main": "./dist/lesson.umd.js",
+  "module": "./dist/lesson.mjs",
   "exports": {
     ".": {
-      "import": "./dist/lessons.mjs",
-      "require": "./dist/lessons.umd.js"
+      "import": "./dist/lesson.mjs",
+      "require": "./dist/lesson.umd.js"
     }
   },
   "scripts": {
