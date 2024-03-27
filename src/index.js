@@ -272,7 +272,7 @@ export default class Lessons {
     /**
      * Add text to block
      */
-    tag.innerHTML = this._data.text || "";
+    tag.innerHTML = this._data.text || "New Lesson";
 
     /**
      * Add styles class
@@ -282,9 +282,7 @@ export default class Lessons {
     /**
      * Add Placeholder
      */
-    tag.dataset.placeholder = this.api.i18n.t(
-      this._settings.placeholder || "New Lesson"
-    );
+    tag.dataset.placeholder = this.api.i18n.t(this._settings.placeholder || "");
     tag.contentEditable = true;
     tag.addEventListener("keyup", this.onKeyUp);
     return tag;
