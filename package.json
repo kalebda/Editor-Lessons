@@ -1,0 +1,39 @@
+{
+  "name": "@kalebu2468/editor-lessons",
+  "version": "0.0.2",
+  "keywords": [
+    "codex editor",
+    "lesson",
+    "editor.js",
+    "editorjs"
+  ],
+  "description": "Lesson Tool for Editor.js",
+  "license": "MIT",
+  "repository": "https://github.com/kalebda/Editor-Lessons.git",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/lessons.umd.js",
+  "module": "./dist/lessons.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/lessons.mjs",
+      "require": "./dist/lessons.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "author": {
+    "name": "Kalebu2468",
+    "email": "kalebu246@gmail.com"
+  },
+  "devDependencies": {
+    "vite": "^4.5.0",
+    "vite-plugin-css-injected-by-js": "^3.3.0"
+  },
+  "dependencies": {
+    "@codexteam/icons": "^0.0.5"
+  }
+}
