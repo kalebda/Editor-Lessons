@@ -35,8 +35,9 @@ export default class Lessons {
    *   config - user config for Tool
    *   api - Editor.js API
    */
-  constructor({ data, config, api }) {
+  constructor({ data, config, api, readOnly }) {
     this.api = api;
+    this.readOnly = readOnly;
 
     /**
      * Styles
@@ -118,17 +119,8 @@ export default class Lessons {
    * @public
    */
   render() {
-    if (
-      this.api.blocks.getCurrentBlockIndex() == -1 ||
-      (this.api.blocks.getCurrentBlockIndex() > -1 &&
-        this.checkPreviousBlocksForTopics(
-          this.api.blocks.getCurrentBlockIndex()
-        ))
-    ) {
-      this._element = this.getTag();
-      return this._element;
-    }
-    return this.getNoNode();
+    this._element = this.getTag();
+    return this._element;
   }
 
   /**
@@ -191,6 +183,14 @@ export default class Lessons {
       level: false,
       text: {},
     };
+  }
+  /**
+   * Returns true to notify core that read-only is supported
+   *
+   * @returns {boolean}
+   */
+  static get isReadOnlySupported() {
+    return true;
   }
 
   /**
@@ -362,7 +362,7 @@ export default class Lessons {
       tag.dataset.placeholder = this.api.i18n.t(
         this._settings.placeholder || ""
       );
-      tag.contentEditable = true;
+      tag.contentEditable = this.readOnly ? "false" : "true";
       tag.addEventListener("keyup", this.onKeyUp);
       return tag;
     }
