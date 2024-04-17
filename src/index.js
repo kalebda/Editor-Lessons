@@ -1,32 +1,4 @@
-/**
- * Build styles
- */
-import "./index.css";
-
-/**
- * @typedef {object} LessonData
- * @description Tool's input and output data format
- * @property {string} text — Lesson's content
- * @property {number} level - Lesson's level from 1 to 6
- */
-
-/**
- * @typedef {object} LessonConfig
- * @description Tool's config from Editor
- * @property {string} placeholder — Block's placeholder
- * @property {number[]} levels — Lesson levels
- * @property {number} defaultLevel — default level
- */
-
-/**
- * Lesson block for the Editor.js.
- *
- * @author CodeX (team@ifmo.su)
- * @copyright CodeX 2018
- * @license MIT
- * @version 2.0.0
- */
-export default class Lessons {
+class Lessons {
   /**
    * Render plugin`s main Element and fill it with saved data
    *
@@ -70,7 +42,6 @@ export default class Lessons {
      * @private
      */
     this._element = null;
-    this.onKeyUp = this.onKeyUp.bind(this);
   }
   /**
    * Normalize input data
@@ -92,17 +63,7 @@ export default class Lessons {
 
     return newData;
   }
-  onKeyUp(e) {
-    if (e.code !== "Backspace" && e.code !== "Delete") {
-      return;
-    }
 
-    const { textContent } = this._element;
-
-    if (textContent === "") {
-      this._element.innerHTML = "";
-    }
-  }
   checkPreviousBlocksForTopics(currentBlockIndex) {
     for (let i = currentBlockIndex; i >= 0; i--) {
       const block = this.api.blocks.getBlockByIndex(i);
@@ -363,7 +324,6 @@ export default class Lessons {
         this._settings.placeholder || ""
       );
       tag.contentEditable = this.readOnly ? "false" : "true";
-      tag.addEventListener("keyup", this.onKeyUp);
       return tag;
     }
   }
@@ -513,7 +473,7 @@ export default class Lessons {
    */
   static get pasteConfig() {
     return {
-      tags: ["H1", "H2", "H3", "H4", "H5", "H6"],
+      tags: ["H2"],
     };
   }
 
