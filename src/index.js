@@ -1,4 +1,32 @@
-class Lessons {
+/*
+ * Build styles
+ */
+import "./index.css";
+
+/**
+ * @typedef {object} LessonData
+ * @description Tool's input and output data format
+ * @property {string} text — Lesson's content
+ * @property {number} level - Lesson's level from 1 to 6
+ */
+
+/**
+ * @typedef {object} LessonConfig
+ * @description Tool's config from Editor
+ * @property {string} placeholder — Block's placeholder
+ * @property {number[]} levels — Lesson levels
+ * @property {number} defaultLevel — default level
+ */
+
+/**
+ * Lesson block for the Editor.js.
+ *
+ * @author CodeX (team@ifmo.su)
+ * @copyright CodeX 2018
+ * @license MIT
+ * @version 2.0.0
+ */
+export default class Lessons {
   /**
    * Render plugin`s main Element and fill it with saved data
    *
@@ -80,8 +108,17 @@ class Lessons {
    * @public
    */
   render() {
-    this._element = this.getTag();
-    return this._element;
+    if (
+      this.api.blocks.getCurrentBlockIndex() == -1 ||
+      (this.api.blocks.getCurrentBlockIndex() > -1 &&
+        this.checkPreviousBlocksForTopics(
+          this.api.blocks.getCurrentBlockIndex()
+        ))
+    ) {
+      this._element = this.getTag();
+      return this._element;
+    }
+    return this.getNoNode();
   }
 
   /**
