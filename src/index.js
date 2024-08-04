@@ -92,15 +92,6 @@ export default class Lessons {
     return newData;
   }
 
-  checkPreviousBlocksForTopics(currentBlockIndex) {
-    for (let i = currentBlockIndex; i >= 0; i--) {
-      const block = this.api.blocks.getBlockByIndex(i);
-      if (block.name == "topics") {
-        return true;
-      }
-    }
-    return false;
-  }
   /**
    * Return Tool's view
    *
@@ -108,17 +99,8 @@ export default class Lessons {
    * @public
    */
   render() {
-    if (
-      this.api.blocks.getCurrentBlockIndex() == -1 ||
-      (this.api.blocks.getCurrentBlockIndex() > -1 &&
-        this.checkPreviousBlocksForTopics(
-          this.api.blocks.getCurrentBlockIndex()
-        ))
-    ) {
-      this._element = this.getTag();
-      return this._element;
-    }
-    return this.getNoNode();
+    this._element = this.getTag();
+    return this._element;
   }
 
   /**
@@ -158,7 +140,7 @@ export default class Lessons {
    */
   save(toolsContent) {
     return {
-      text: toolsContent.innerHTML,
+      text: toolsContent.innerHTML || this._data.text,
       level: this.currentLevel.number,
     };
   }
@@ -365,19 +347,6 @@ export default class Lessons {
     }
   }
 
-  getNoNode() {
-    /**
-     * Create element
-     */
-    const tag = document.createElement("DIV");
-
-    /**
-     * Add '' to block
-     */
-    tag.innerHTML = "";
-
-    return tag;
-  }
   /**
    * Get current level
    *
