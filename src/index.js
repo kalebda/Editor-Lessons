@@ -139,8 +139,9 @@ export default class Lessons {
    * @public
    */
   save(toolsContent) {
+    const text = toolsContent.innerHTML.trim();
     return {
-      text: toolsContent.innerHTML || this._data.text,
+      text: text === "" ? "" : text || this._data.text,
       level: this.currentLevel.number,
     };
   }
